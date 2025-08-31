@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Age Calculator</title>
+    <style></style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/4.1.0/cdn.min.js"></script>
+  </head>
+  <body>
+    <p>Age Calculator</p>
+    <p>A way to calculate your age with great precision.</p>
+    <p>Enter birth date:</p>
+    <input type="datetime-local" class="birth-date-input js-birth-date-input">
+    <button class="btn js-calculate-button">Calculate</button>
+    <p class="js-result"></p>
+    <script>
+      const inputElement = document.querySelector(".js-birth-date-input");
+      const buttonElement = document.querySelector(".js-calculate-button");
+      buttonElement.addEventListener('click', () => {
+          setInterval(
+            () => {
+              calculateAge();
+            }, 1000
+        )
+      });
+      function calculateAge() {
+        const birthDate = new Date(inputElement.value);
+        const currentDate = new Date();
+        const interval = dateFns.intervalToDuration({ start: birthDate, end: currentDate });
+        let result = '';
+        const resultElement = document.querySelector(".js-result");
+        Object.entries(interval).forEach(([key, value]) => {
+        result += `${value} ${key} `
+        });
+        resultElement.innerHTML=`You've lived for: ${result}`
+      }
+    </script>
+  </body>
+</html>
